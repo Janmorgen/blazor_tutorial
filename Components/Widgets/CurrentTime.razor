@@ -1,0 +1,49 @@
+@rendermode InteractiveServer
+
+
+<p> @Time </p>
+@implements IDisposable
+
+@code{
+[Parameter]
+public bool TimeDisplay{get;set;} = false;
+
+
+private string Time { get; set; }
+System.Threading.Timer timer;
+private int updatePeriod=1000;
+private async Task<string> GetValue(){
+if (TimeDisplay){
+    updatePeriod=1000;
+    return DateTime.Now.ToString("h:mm:ss tt");
+
+}else{
+updatePeriod=60000;
+ return DateTime.Now.ToString("M/d/yyyy"); 
+
+}
+}
+protected override Task OnInitializedAsync()
+{
+    timer = new System.Threading.Timer( async _ =>
+    {
+        
+
+        Time = await GetValue();
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+            
+        });
+        await Task.Yield();
+
+
+    }, null, 0, updatePeriod);
+    return base.OnInitializedAsync();
+}
+
+public void Dispose(){
+  timer?.Dispose();
+}
+
+}

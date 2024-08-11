@@ -37,11 +37,14 @@ else
 }
 
 @code {
+// Declaration of a weatherForecast class object
     private WeatherForecast[]? forecasts;
-
+// protected tag only allows access to derived classes or the same class
+// override tag overrides baseclass function, in this case its overriding OnInitializedAsync from the WeatherForecase class
     protected override async Task OnInitializedAsync()
     {
         // Simulate asynchronous loading to demonstrate streaming rendering
+        // This moves execution down the queue, allowing UI elements to render before getting data
         await Task.Delay(500);
 
         var startDate = DateOnly.FromDateTime(DateTime.Now);
