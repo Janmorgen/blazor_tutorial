@@ -1,2 +1,4 @@
+/obj
 /bin
-/obj/Debug/*
+
+.dotnet-install.sh
