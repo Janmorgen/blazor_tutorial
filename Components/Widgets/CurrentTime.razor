@@ -2,6 +2,8 @@
 
 
 <p> @Time </p>
+
+ 
 @implements IDisposable
 
 @code{
@@ -12,6 +14,7 @@ public bool TimeDisplay{get;set;} = false;
 private string Time { get; set; }
 System.Threading.Timer timer;
 private int updatePeriod=1000;
+// private int updatePeriod;
 private async Task<string> GetValue(){
 if (TimeDisplay){
     updatePeriod=1000;
@@ -35,7 +38,7 @@ protected override Task OnInitializedAsync()
             StateHasChanged();
             
         });
-        await Task.Yield();
+        // await Task.Yield();
 
 
     }, null, 0, updatePeriod);
